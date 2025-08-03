@@ -139,7 +139,7 @@
 </head>
 <body class="bg-black">
     <audio id="background-music" loop>
-        <source src="http://googleusercontent.com/file_content/1" type="audio/mpeg">
+        <source src="https://storage.googleapis.com/gemini-us-prod-us-west1-149253501395/uploaded/Aao%20Kabhi%20Haveli%20Pe%20Stree%20128%20Kbps.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
 
@@ -149,7 +149,7 @@
         <div class="invitation-card p-8 md:p-12 rounded-2xl shadow-2xl text-center text-white">
             <h1 class="font-dancing text-4xl md:text-6xl mb-4">For my dearest friend, Khushbu...</h1>
             <p class="text-lg md:text-2xl mb-8">A surprise just for you on Friendship Day!</p>
-            <button onclick="changePage(2); playMusic();" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
+            <button onclick="startSurprise()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg">
                 Click to Reveal
             </button>
         </div>
@@ -199,12 +199,16 @@
     <script>
         let currentPage = 1;
         const music = document.getElementById('background-music');
+        let musicStarted = false;
 
-        function playMusic() {
-            music.play().catch(error => {
-                // Autoplay was prevented.
-                console.log("Music autoplay was prevented. User must interact with the page first.");
-            });
+        function startSurprise() {
+            if (!musicStarted) {
+                music.play().catch(error => {
+                    console.log("Music autoplay was prevented. Awaiting user interaction.");
+                });
+                musicStarted = true;
+            }
+            changePage(2);
         }
 
         function changePage(pageNumber) {
